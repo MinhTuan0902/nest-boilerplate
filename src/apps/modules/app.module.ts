@@ -22,10 +22,7 @@ import { UserModule } from './users/user.module';
       useFactory: (envService: EnvService) =>
         getMongooseModuleOptions(envService),
     }),
-    GraphQLModule.forRootAsync<ApolloDriverConfig>({
-      inject: [EnvService],
-      useFactory: (envService: EnvService) => getApolloDriverConfig(envService),
-    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>(getApolloDriverConfig()),
 
     AuthModule,
     UserModule,

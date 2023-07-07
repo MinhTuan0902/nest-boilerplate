@@ -56,6 +56,7 @@ export class AuthService {
       uid: _id,
     };
 
+    // TODO: Refactor
     return {
       accessToken: {
         token: this.jwtService.sign(payload, {
@@ -63,9 +64,22 @@ export class AuthService {
             EnvVariable.JWTAccessTokenExpirationTime,
           ),
         }),
-        expiresAt: new Date(),
+        expiresAt: new Date(
+          new Date().getTime() +
+            +this.envService.get(EnvVariable.JWTAccessTokenExpirationTime),
+        ),
       },
-      refreshToken: 'REFRESH_TOKEN',
+      refreshToken: {
+        token: this.jwtService.sign(payload, {
+          expiresIn: +this.envService.get(
+            EnvVariable.JWTRefreshTokenExpirationTime,
+          ),
+        }),
+        expiresAt: new Date(
+          new Date().getTime() +
+            +this.envService.get(EnvVariable.JWTRefreshTokenExpirationTime),
+        ),
+      },
     };
   }
 }

@@ -6,6 +6,6 @@ export class AuthData {
   @Field(() => JWT)
   accessToken: JWT;
 
-  @Field(() => String)
-  refreshToken: string;
+  @Field(() => JWT)
+  refreshToken: JWT;
 }

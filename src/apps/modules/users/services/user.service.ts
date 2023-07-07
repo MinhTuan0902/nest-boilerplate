@@ -9,10 +9,10 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async createOneUser(input: RegisterInput): Promise<User> {
-    return this.userRepository.createOneUser(input);
+    return this.userRepository.createOne(input);
   }
 
   async findOneUser(filter: FilterUserInput): Promise<User> {
-    return this.userRepository.findOneUser(filter);
+    return this.userRepository.findOneByFilter(filter);
   }
 }

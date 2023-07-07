@@ -1,14 +1,10 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { EnvVariable, NodeEnv } from '@shared/enums';
-import { EnvService } from '@shared/modules/env/env.service';
 import { GraphQLFormattedError } from 'graphql';
 import { join } from 'path';
 
-export const getApolloDriverConfig = (
-  envService: EnvService,
-): ApolloDriverConfig => ({
+export const getApolloDriverConfig = (): ApolloDriverConfig => ({
   driver: ApolloDriver,
-  playground: envService.get(EnvVariable.NodeEnv) === NodeEnv.Development,
+  playground: true,
   buildSchemaOptions: {
     dateScalarMode: 'isoDate',
   },

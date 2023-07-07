@@ -6,8 +6,5 @@ export class RegisterInput {
   username: string;
 
   @Field(() => String)
-  fullName: string;
-
-  @Field(() => String)
   password: string;
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from '@schemas/user.schema';
 import { transformFilterToMongoFilterQuery } from '@utils/filter';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { FilterUserInput } from '../inputs';
 
 @Injectable()
@@ -12,16 +12,19 @@ export class UserRepository {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async createOneUser(input: RegisterInput): Promise<User> {
+  async createOne(input: RegisterInput): Promise<User> {
     return this.userModel.create(input);
   }
 
-  async findOneUser(filter: FilterUserInput): Promise<User> {
-    return this.userModel.findOne(transformFilterToMongoFilterQuery(filter));
+  async findOneByFilter(filter: FilterUserInput): Promise<User> {
+    const filterQuery: FilterQuery<UserDocument> =
+      transformFilterToMongoFilterQuery(filter);
+    return this.userModel.findOne(filterQuery).lean().exec();
   }
 
-  async findManyUsers(filter: FilterUserInput): Promise<User[]> {
-    const filterQuery = transformFilterToMongoFilterQuery(filter);
-    return this.userModel.find(filterQuery);
+  async findManyBuFilter(filter: FilterUserInput): Promise<User[]> {
+    const filterQuery: FilterQuery<UserDocument> =
+      transformFilterToMongoFilterQuery(filter);
+    return this.userModel.find(filterQuery).lean().exec();
   }
 }

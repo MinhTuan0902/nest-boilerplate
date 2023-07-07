@@ -11,10 +11,6 @@ export class User extends BaseSchema {
   username: string;
 
   @Prop({ type: String })
-  @Field(() => String)
-  fullName: string;
-
-  @Prop({ type: String })
   encryptedPassword: string;
 }
 

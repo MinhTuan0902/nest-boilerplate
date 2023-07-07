@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { transformAndValidateSync } from 'class-transformer-validator';
 import { EnvService } from './env.service';
 import { EnvVariableValidator } from './env.validator';
-import { transformAndValidateSync } from 'class-transformer-validator';
 
 @Global()
 @Module({
